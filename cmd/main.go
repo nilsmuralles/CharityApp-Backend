@@ -20,14 +20,29 @@ func main() {
 	}))
 
 	db := database.ConnectToDatabase()
-	api := router.GET("/ping", func(c *gin.Context) {
+	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "¡Backend conectado con éxito!",
 		})
 	})
-	api.GET("/campaign-donations", func(c *gin.Context) {
-		handlers.GetCampaignDonationsHandler(c, db)
-	})
+	api := router.Group("/api")
+	{
+		api.GET("/campaign-donations", func(c *gin.Context) {
+			handlers.GetCampaignDonationsHandler(c, db)
+		})
+		api.GET("/trending-donations", func(c *gin.Context) {
+			handlers.GetTrendingDonationsHandler(c, db)
+		})
+		api.GET("/volunteer-participation", func(c *gin.Context) {
+			handlers.GetVolunteerParticipationHandler(c, db)
+		})
+		api.GET("/donors-distribution", func(c *gin.Context) {
+			handlers.GetDonorsDistributionHandler(c, db)
+		})
+		api.GET("/campaign-efficiency", func(c *gin.Context) {
+			handlers.GetCampaignEfficiencyHandler(c, db)
+		})
+	}
 
 	router.Run(":8080")
 }
