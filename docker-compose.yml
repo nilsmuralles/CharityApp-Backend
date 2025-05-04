@@ -8,6 +8,12 @@ services:
       - "5432:5432"
     networks:
       - app-network
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: charity
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d charity"]
       interval: 5s
@@ -24,11 +30,6 @@ services:
     depends_on:
       database:
         condition: service_healthy
-    # env_file:
-    #   - .env
-    # environment:
-    #   - DB_HOST=database
-    #   - DB_PORT=5432
     networks:
       - app-network
 

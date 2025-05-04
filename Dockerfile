@@ -1,4 +1,4 @@
-FROM golang:1.24
+FROM golang:1.24.2
 
 WORKDIR /app
 
@@ -6,7 +6,6 @@ COPY /go.* ./
 RUN go mod download
 
 COPY ./ .
-# COPY .env ./
 
 RUN go build -o main ./cmd/main.go
 
