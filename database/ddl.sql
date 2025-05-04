@@ -96,8 +96,8 @@ CREATE TABLE voluntario_voluntariado (
     id SERIAL PRIMARY KEY,
     id_voluntario INT NOT NULL REFERENCES voluntario(id),
     id_voluntariado INT NOT NULL REFERENCES voluntariado(id),
-    hora_inicio TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    hora_fin TIMESTAMP,
+    hora_inicio TIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    hora_fin TIME,
     CHECK (hora_fin IS NULL OR hora_inicio <= hora_fin),
     UNIQUE (id_voluntario, id_voluntariado)
 );
